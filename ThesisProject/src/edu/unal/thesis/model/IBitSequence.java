@@ -46,7 +46,7 @@ public interface IBitSequence {
      * @throws IndexOutOfBoundsException
      *             if the nth is out of range (<tt>nth &lt; 1</tt>)
      */
-    public int getIndexOf(boolean status, int nth);
+    public int select(boolean status, int nth);
 
     /**
      * Returns the number of bits in this {@code BitSequence}. If this

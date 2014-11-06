@@ -177,9 +177,9 @@ public class LinkedWaveletTree<E extends Comparable<? super E>> extends WaveletT
                 IBitSequence bits = this.node.getBits();
         
                 if (this.node.isLeaf()) {
-                    position = bits.getIndexOf(status, nth);
+                    position = bits.select(status, nth);
                 } else {
-                    position = bits.getIndexOf(status, this.getChild(status).select(e, nth) + 1);
+                    position = bits.select(status, this.getChild(status).select(e, nth) + 1);
                 }
             }
 

@@ -47,7 +47,7 @@ public class BitArray implements IBitSequence {
      * @see edu.unal.thesis.implementations.IBitSequence#getIndexOf(boolean, int)
      */
     @Override
-    public int getIndexOf(boolean status, int nth) {
+    public int select(boolean status, int nth) {
         int i = 0, indexOfNth = -1;
 
         if (nth < 1)

@@ -43,6 +43,7 @@ public class LinkedWaveletTreeTest {
                 'c', 'a', 'd', 'a', 'b', 'r', 'a' });
         IWaveletTree<Character> wt = new LinkedWaveletTree<Character>(sequence);
         assertEquals(8, wt.select('b', 2));
+        assertEquals(3, wt.select('a', 2));
         
         sequence = Arrays.asList(new Character[] { 'a', 'a', 'a', 'a',
                 'a', 'a', 'a', 'a', 'a', 'a', 'a' });
@@ -93,6 +94,8 @@ public class LinkedWaveletTreeTest {
         IWaveletTree<Character> wt = new LinkedWaveletTree<Character>(sequence);
         
         assertEquals(4, wt.rank('a', 8));
+        assertEquals(1, wt.rank('a', 3));
+        assertEquals(2, wt.rank('a', 4));
         
         sequence = Arrays.asList(new Character[] { 'a', 'a', 'a', 'a',
                 'a', 'a', 'a', 'a', 'a', 'a', 'a' });

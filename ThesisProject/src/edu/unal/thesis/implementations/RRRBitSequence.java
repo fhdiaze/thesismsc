@@ -33,7 +33,7 @@ public class RRRBitSequence implements IBitSequence {
      * @see edu.unal.thesis.implementations.IBitSequence#getIndexOf(boolean, int)
      */
     @Override
-    public int getIndexOf(boolean status, int nth) {
+    public int select(boolean status, int nth) {
         // TODO Auto-generated method stub
         return 0;
     }
