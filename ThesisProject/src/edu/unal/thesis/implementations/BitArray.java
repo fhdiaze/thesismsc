@@ -50,15 +50,15 @@ public class BitArray implements IBitSequence {
     public int select(boolean status, int nth) {
         int i = 0, indexOfNth = -1;
 
-        if (nth < 1)
-            throw new IndexOutOfBoundsException("nth < 1: " + nth);
+        if (nth < 0)
+            throw new IndexOutOfBoundsException("nth < 0: " + nth);
         
         do {
             indexOfNth++;
             indexOfNth = status ? this.bits.nextSetBit(indexOfNth) : this.bits
                     .nextClearBit(indexOfNth);
 
-        } while (++i < nth && indexOfNth >= 0 && indexOfNth < this.length);
+        } while (i++ < nth && indexOfNth >= 0 && indexOfNth < this.length);
 
         indexOfNth = indexOfNth >= this.length ? -1 : indexOfNth;
         

@@ -45,13 +45,13 @@ public interface IWaveletTree<E extends Comparable<? super E>> {
     public int rank(E e, int index);
 
     /**
-     * Return the position (0-based) where the element {@code e} is staying or
+     * Return the position (0-based) where nth occurrence (0-based) of the element {@code e} is staying or
      * -1 if there is no such element
      * 
      * @param e
      *            The element looking for
      * @param nth
-     *            The number of occurrence desired
+     *            The number (0-based) of occurrence desired
      * @return The position (0-based) where the element {@code e} appear
      * @throws IndexOutOfBoundsException
      *             if the nth is out of range (<tt>nth &lt; 1</tt>)

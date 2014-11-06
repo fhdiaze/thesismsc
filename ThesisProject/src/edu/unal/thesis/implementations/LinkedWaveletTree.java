@@ -179,7 +179,8 @@ public class LinkedWaveletTree<E extends Comparable<? super E>> extends WaveletT
                 if (this.node.isLeaf()) {
                     position = bits.select(status, nth);
                 } else {
-                    position = bits.select(status, this.getChild(status).select(e, nth) + 1);
+                    int posAux = this.getChild(status).select(e, nth);
+                    position = posAux >= 0? bits.select(status, posAux) : posAux;
                 }
             }
 

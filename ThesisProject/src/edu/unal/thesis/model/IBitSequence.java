@@ -34,17 +34,17 @@ public interface IBitSequence {
     public boolean get(int bitIndex);
 
     /**
-     * Returns the index (0-based) of the {@code nth} occurrence of
+     * Returns the index (0-based) of the {@code nth} occurrence (0-based) of
      * {@code status} in this {@code BitSequence}
      * 
      * @param status
      *            The status of the bit be looking for
      * @param nth
-     *            The number of occurrence desired
-     * @return the index (0-based) of the next bit with status {@code status},
+     *            The number of occurrence desired (0-based)
+     * @return the index (0-based) of the nth (0-based) bit with status {@code status},
      *         or {@code -1} if there is no such bit
      * @throws IndexOutOfBoundsException
-     *             if the nth is out of range (<tt>nth &lt; 1</tt>)
+     *             if the nth is out of range (<tt>nth &lt; 0</tt>)
      */
     public int select(boolean status, int nth);
 

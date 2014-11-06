@@ -6,7 +6,7 @@ package edu.unal.thesis.test;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.unal.thesis.implementations.ArrayWaveletTree;
+import edu.unal.thesis.implementations.LinkedWaveletTree;
 import edu.unal.thesis.model.IWaveletTree;
 
 /**
@@ -21,8 +21,8 @@ public class Client {
     public static void main(String[] args) {
         List<Character> sequence = Arrays.asList(new Character[] { 'a', 'b', 'r', 'a',
                 'c', 'a', 'd', 'a', 'b', 'r', 'a' });
-        IWaveletTree<Character> wt = new ArrayWaveletTree<Character>(sequence);
-        wt.select('a', 12);
+        IWaveletTree<Character> wt = new LinkedWaveletTree<Character>(sequence);
+        wt.select('b', 2);
     }
 
 }
