@@ -18,8 +18,7 @@ public class LinkedWaveletTreeTest {
 
     /**
      * Test method for
-     * {@link edu.unal.thesis.implementations.LinkedWaveletTree#LinkedWaveletTree(java.lang.String)}
-     * .
+     * {@link edu.unal.thesis.implementations.LinkedWaveletTree#LinkedWaveletTree(java.lang.String)}.
      */
     @Test
     public void testLinkedWaveletTree() {

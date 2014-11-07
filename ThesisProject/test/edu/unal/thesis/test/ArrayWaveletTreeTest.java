@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Test;
 
 import edu.unal.thesis.implementations.ArrayWaveletTree;
+import edu.unal.thesis.model.IWaveletTree;
 
 /**
  * @author fredy
@@ -19,7 +20,8 @@ import edu.unal.thesis.implementations.ArrayWaveletTree;
 public class ArrayWaveletTreeTest {
 
     /**
-     * Test method for {@link edu.unal.thesis.implementations.ArrayWaveletTree#ArrayWaveletTree(java.util.List)}.
+     * Test method for
+     * {@link edu.unal.thesis.implementations.LinkedWaveletTree#LinkedWaveletTree(java.lang.String)}.
      */
     @Test
     public void testArrayWaveletTree() {
@@ -34,35 +36,86 @@ public class ArrayWaveletTreeTest {
     }
 
     /**
-     * Test method for {@link edu.unal.thesis.implementations.ArrayWaveletTree#access(int)}.
-     */
-    @Test
-    public void testAccess() {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link edu.unal.thesis.implementations.ArrayWaveletTree#length()}.
-     */
-    @Test
-    public void testLength() {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link edu.unal.thesis.implementations.ArrayWaveletTree#rank(java.lang.Comparable, int)}.
-     */
-    @Test
-    public void testRank() {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link edu.unal.thesis.implementations.ArrayWaveletTree#select(java.lang.Comparable, int)}.
+     * Test method for
+     * {@link edu.unal.thesis.implementations.ArrayWaveletTree#select(char, int)}.
      */
     @Test
     public void testSelect() {
-        fail("Not yet implemented");
+        List<Character> sequence = Arrays.asList(new Character[] { 'a', 'b', 'r', 'a',
+                'c', 'a', 'd', 'a', 'b', 'r', 'a' });
+        IWaveletTree<Character> wt = new ArrayWaveletTree<Character>(sequence);
+        assertEquals(8, wt.select('b', 1));
+        assertEquals(5, wt.select('a', 2));
+        assertEquals(-1, wt.select('b', 2));
+        
+        sequence = Arrays.asList(new Character[] { 'a', 'a', 'a', 'a',
+                'a', 'a', 'a', 'a', 'a', 'a', 'a' });
+        
+        wt = new ArrayWaveletTree<Character>(sequence);
+        
+        assertEquals(-1, wt.select('b', 2));
+        assertEquals(-1, wt.select('a', 12));        
+        assertEquals(2, wt.select('a', 2));
+        
+        try {
+            wt.select('a', -1); 
+            fail();
+         } catch (Exception e) {
+            // expected
+            // could also check for message of exception, etc.
+         }
+    }
+
+    /**
+     * Test method for
+     * {@link edu.unal.thesis.implementations.ArrayWaveletTree#access(int)}.
+     */
+    @Test
+    public void testAccess() {
+        List<Character> sequence = Arrays.asList(new Character[] { 'a', 'b', 'r', 'a',
+                'c', 'a', 'd', 'a', 'b', 'r', 'a' });
+        IWaveletTree<Character> wt = new ArrayWaveletTree<Character>(sequence);
+        assertEquals(new Character('a'), wt.access(5));
+        
+        try {
+            wt.access(18); 
+            fail();
+         } catch (IndexOutOfBoundsException e) {
+            // expected
+            // could also check for message of exception, etc.
+         }
+    }
+
+    /**
+     * Test method for
+     * {@link edu.unal.thesis.implementations.ArrayWaveletTree#rank(char, int)}.
+     */
+    @Test
+    public void testRank() {
+        List<Character> sequence = Arrays.asList(new Character[] { 'a', 'b', 'r', 'a',
+                'c', 'a', 'd', 'a', 'b', 'r', 'a' });
+        IWaveletTree<Character> wt = new ArrayWaveletTree<Character>(sequence);
+        
+        assertEquals(4, wt.rank('a', 8));
+        assertEquals(1, wt.rank('a', 3));
+        assertEquals(2, wt.rank('a', 4));
+        
+        sequence = Arrays.asList(new Character[] { 'a', 'a', 'a', 'a',
+                'a', 'a', 'a', 'a', 'a', 'a', 'a' });
+        
+        wt = new ArrayWaveletTree<Character>(sequence);
+        
+        assertEquals(0, wt.rank('b', 8));
+        
+        wt.rank('c', 18);
+        
+        try {
+            wt.rank('a', 18); 
+            fail();
+         } catch (Exception e) {
+            // expected
+            // could also check for message of exception, etc.
+         }
     }
 
 }

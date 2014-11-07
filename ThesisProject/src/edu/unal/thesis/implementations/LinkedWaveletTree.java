@@ -27,8 +27,8 @@ public class LinkedWaveletTree<E extends Comparable<? super E>> extends WaveletT
      * @see edu.unal.thesis.implementations.IWaveletTree#access(int)
      */
     @Override
-    public E access(int bitIndex) {
-        return root.access(bitIndex);
+    public E access(int index) {
+        return root.access(index);
     }
 
     /* (non-Javadoc)
@@ -129,16 +129,16 @@ public class LinkedWaveletTree<E extends Comparable<? super E>> extends WaveletT
          * (non-Javadoc)
          * @see edu.unal.thesis.implementations.IWaveletTree#access(int)
          */
-        private E access(int bitIndex) {
+        private E access(int index) {
             E result;
-            boolean status = this.node.getBits().get(bitIndex);
-            int index;
+            boolean status = this.node.getBits().get(index);
+            int leafIndex;
 
             if (this.node.isLeaf()) {
-                index = status ? this.node.getMaxElemInd() : this.node.getMinElemInd();
-                result = getAlphabet().get(index);
+                leafIndex = status ? this.node.getMaxElemInd() : this.node.getMinElemInd();
+                result = getAlphabet().get(leafIndex);
             } else {
-                result = this.getChild(status).access(this.node.getBits().rank(status, bitIndex + 1) - 1);
+                result = this.getChild(status).access(this.node.getBits().rank(status, index + 1) - 1);
             }
 
             return result;
