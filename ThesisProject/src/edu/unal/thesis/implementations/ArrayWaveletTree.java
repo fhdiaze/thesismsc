@@ -53,8 +53,8 @@ public class ArrayWaveletTree<E extends Comparable<? super E>> extends WaveletTr
         }
                     
         if (!parent.isLeaf()) {
-            this.nodes[index * 2 + 1] = construct(leftSequence, index * 2 + 1, minElemInd, this.nodes[index].getMiddleIndex());
-            this.nodes[index * 2 + 2] = construct(rightSequence, index * 2 + 2, this.nodes[index].getMiddleIndex() + 1, maxElemInd);
+            this.nodes[index * 2 + 1] = construct(leftSequence, index * 2 + 1, minElemInd, parent.getMiddleIndex());
+            this.nodes[index * 2 + 2] = construct(rightSequence, index * 2 + 2, parent.getMiddleIndex() + 1, maxElemInd);
         }
         
         return parent;
@@ -76,16 +76,20 @@ public class ArrayWaveletTree<E extends Comparable<? super E>> extends WaveletTr
 
     @Override
     public int rank(E e, int index) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.rank(0, e, index);
     }
 
     @Override
     public int select(E e, int nth) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.select(0, e, nth);
     }
     
+    /**
+     * 
+     * @param node
+     * @param index
+     * @return
+     */
     private E access(int node, int index) {
         E result;
         boolean status = this.nodes[node].getBits().get(index);
@@ -102,6 +106,55 @@ public class ArrayWaveletTree<E extends Comparable<? super E>> extends WaveletTr
     }
     
     /**
+     * 
+     * @param node
+     * @param e
+     * @param index
+     * @return
+     */
+    private int rank(int node, E e, int index) {
+        int result = 0;
+        
+        if (exists(e)) {
+            boolean status = this.nodes[node].getElementValue(getAlphabet().indexOf(e));
+            IBitSequence bits = this.nodes[node].getBits();
+
+            if (this.nodes[node].isLeaf()) {
+                result = bits.rank(status, index);
+            } else {
+                result = this.rank(this.getChild(node, status), e, bits.rank(status, index));
+            }
+        }
+        
+        return result;
+    }
+    
+    /**
+     * 
+     * @param node
+     * @param e
+     * @param nth
+     * @return
+     */
+    private int select(int node, E e, int nth) {
+        int position = -1;
+        
+        if (exists(e)) {
+            boolean status = this.nodes[node].getElementValue(getAlphabet().indexOf(e));
+            IBitSequence bits = this.nodes[node].getBits();
+    
+            if (this.nodes[node].isLeaf()) {
+                position = bits.select(status, nth);
+            } else {
+                int posAux = this.select(this.getChild(node,status), e, nth);
+                position = posAux >= 0? bits.select(status, posAux) : posAux;
+            }
+        }
+
+        return position;
+    }
+    
+    /**
      * Return the index of the left child to the node with index {@code node} if
      * {@code status} is {@code true} or the right in the other case
      * 
@@ -113,5 +166,14 @@ public class ArrayWaveletTree<E extends Comparable<? super E>> extends WaveletTr
      */
     private int getChild(int node, boolean status) {
         return status ? node * 2 + 2 : node * 2 + 1;
+    }
+    
+    /**
+     * Check whether a element is in the alphabet or not
+     * @param e The element to check
+     * @return true if the element is in the alphabet, false in other case
+     */
+    private boolean exists(E e) {
+        return super.getAlphabet().contains(e);
     }
 }
