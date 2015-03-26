@@ -11,6 +11,11 @@ import edu.unal.thesis.model.IBitSequence;
  */
 public class RRRBitSequence implements IBitSequence {
 
+	
+	
+	public RRRBitSequence() {
+		
+	}
     /* (non-Javadoc)
      * @see edu.unal.thesis.implementations.IBitSequence#clear(int)
      */
